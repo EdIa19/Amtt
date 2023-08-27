@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .heart-container {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 90px;
+        }
+        
+        .heart:before,
+        .heart:after {
+            position: absolute;
+            content: "";
+            left: 50px;
+            top: 0;
+            width: 50px;
+            height: 80px;
+            background-color: red;
+            border-radius: 50px 50px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+        
+        .heart:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+        
+        .message {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        #spotifyEmbed {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 280px; /* Ajusta el ancho del reproductor */
+            height: 210px; /* Ajusta la altura del reproductor */
+            margin: 20px;
+        }
+    
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #0e0b0b;
+            
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white; /* Cambia el color del texto a blanco */
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Clicker</title>
+</head>
+<body>
+    <div class="heart-container">
+        <div class="heart"></div>
+    </div>
+    <div class="message">
+        <p id="messageText">Holap</p>
+    </div>
+    <div id="spotifyEmbed"></div> <!-- Aquí se mostrará el reproductor de Spotify -->
+    <script>
+        const heart = document.querySelector('.heart');
+        const messageText = document.getElementById('messageText');
+        const spotifyEmbed = document.getElementById('spotifyEmbed');
+        const messages = [
+            'Pues bueno',
+            'Como te explico lo que siento :/',
+            'Sinceramente eres increíble',
+            'Eres alguien especial para mi',
+            'Y me gustaria decirte muchas o decicarte muchas cosas ',
+            'Y supongo que suena extraño ya que no hablamos mucho',
+            'Pero te quiero y me gustas',
+            'y creo ya',
+            'Igual no quiero que sientas lo mismo',
+            'Solo quiero que lo veas y lo escuches',
+            'Gracias <3'
+        ];
+        let messageIndex = 0;
+        
+        heart.addEventListener('click', () => {
+            heart.classList.toggle('clicked');
+            messageText.textContent = messages[messageIndex];
+            messageIndex = (messageIndex + 1) % messages.length;
+            
+            // Mostrar el reproductor de Spotify cuando se hace clic en el corazón
+            spotifyEmbed.style.display = 'block';
+        });
+
+        const playlistTitle = 'Tu Título de Playlist'; // Cambia esto al título deseado
+        const iframe = document.createElement('iframe');
+        iframe.title = `Spotify Embed: ${playlistTitle}`;
+        iframe.src = 'https://open.spotify.com/embed/playlist/6EcvXjnEkuxNGDm6XJVaQA?utm_source=generator&theme=0';
+        iframe.width = '100%';
+        iframe.height = '160'; /* Ajusta la altura del reproductor incrustado */
+        iframe.frameBorder = '0';
+        iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+        iframe.loading = 'lazy';
+        spotifyEmbed.appendChild(iframe);
+    </script>
+</body>
+</html>
